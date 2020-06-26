@@ -1,4 +1,4 @@
-var discovery = require('discovery-channel')
+var discovery = require('dweb-discovery-channel')
 var pump = require('pump')
 var events = require('events')
 var util = require('util')
@@ -7,7 +7,7 @@ var toBuffer = require('to-buffer')
 var crypto = require('crypto')
 var lpmessage = require('length-prefixed-message')
 var connections = require('connections')
-var debug = require('debug')('discovery-swarm')
+var debug = require('debug')('dweb-discovery-swarm')
 
 try {
   var utp = require('utp-native')

@@ -23,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mafintosh/discovery-swarm.git"
+    "url": "https://github.com/distributedweb/dweb-discovery-swarm.git"
   },
   "author": "Mathias Buus (@mafintosh)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mafintosh/discovery-swarm/issues"
+    "url": "https://github.com/distributedweb/dweb-discovery-swarm/issues"
   },
-  "homepage": "https://github.com/mafintosh/discovery-swarm"
+  "homepage": "https://github.com/distributedweb/dweb-discovery-swarm"
 }
