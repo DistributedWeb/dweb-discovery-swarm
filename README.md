@@ -1,19 +1,19 @@
-# dweb-discovery-swarm
+# discovery-swarm
 
-A network swarm that uses [dweb-discovery-channel](https://github.com/maxogden/dweb-discovery-channel) to find and connect to peers.
+A network swarm that uses [discovery-channel](https://github.com/maxogden/discovery-channel) to find and connect to peers.
 
-This module implements peer connection state and builds on dweb-discovery-channel which implements peer discovery. This uses TCP sockets by default and has experimental support for UTP.
+This module implements peer connection state and builds on discovery-channel which implements peer discovery. This uses TCP sockets by default and has experimental support for UTP.
 
 ```
-npm install dweb-discovery-swarm
+npm install discovery-swarm
 ```
 
-[![build status](http://img.shields.io/travis/mafintosh/dweb-discovery-swarm.svg?style=flat)](http://travis-ci.org/mafintosh/dweb-discovery-swarm)
+[![build status](http://img.shields.io/travis/mafintosh/discovery-swarm.svg?style=flat)](http://travis-ci.org/mafintosh/discovery-swarm)
 
 ## Usage
 
 ``` js
-var swarm = require('dweb-discovery-swarm')
+var swarm = require('discovery-swarm')
 
 var sw = swarm()
 
@@ -38,11 +38,12 @@ Create a new swarm. Options include:
   utp: true, // use utp for discovery
   tcp: true, // use tcp for discovery
   maxConnections: 0, // max number of connections.
-  whitelist: [] // array of ip addresses to restrict connections to
+  whitelist: [], // array of ip addresses to restrict connections to
+  keepExistingConnections: false  // by default, prefer tcp by dropping old utp connections
 }
 ```
 
-For full list of `opts` take a look at [dweb-discovery-channel](https://github.com/maxogden/dweb-discovery-channel)
+For full list of `opts` take a look at [discovery-channel](https://github.com/maxogden/discovery-channel)
 
 #### `sw.join(key, [opts], [cb])`
 

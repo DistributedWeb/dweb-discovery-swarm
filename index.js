@@ -1,4 +1,4 @@
-var discovery = require('dweb-discovery-channel')
+var discovery = require('discovery-channel')
 var pump = require('pump')
 var events = require('events')
 var util = require('util')
@@ -7,7 +7,7 @@ var toBuffer = require('to-buffer')
 var crypto = require('crypto')
 var lpmessage = require('length-prefixed-message')
 var connections = require('connections')
-var debug = require('debug')('dweb-discovery-swarm')
+var debug = require('debug')('discovery-swarm')
 
 try {
   var utp = require('utp-native')
@@ -48,6 +48,7 @@ function Swarm (opts) {
   this._tcpConnections = this._tcp && connections(this._tcp)
   this._adding = null
   this._listening = false
+  this._keepExistingConnections = (opts.keepExistingConnections === true)
 
   this._peersIds = {}
   this._peersSeen = {}
@@ -206,10 +207,15 @@ Swarm.prototype._ondiscover = function () {
       return
     }
     var peerSeen = self._peersSeen[id] || self._peersSeen[longId]
-    if (peerSeen) {
-      self.emit('peer-rejected', peer, { reason: (peerSeen === PEER_BANNED) ? 'banned' : 'duplicate' })
+    var peerConnected = self._peersIds[id] || self._peersIds[longId]
+    if (peerSeen && peerSeen === PEER_BANNED) {
+      self.emit('peer-rejected', peer, { reason: 'banned' })
+      return
+    } else if (peerSeen && peerConnected) {
+      self.emit('peer-rejected', peer, { reason: 'duplicate' })
       return
     }
+
     self._peersSeen[longId] = PEER_SEEN
     self._peersQueued.push(peerify(peer, channel))
     self.emit('peer', peer)
@@ -410,6 +416,12 @@ Swarm.prototype._onconnection = function (connection, type, peer) {
     var oldWrap = self._peersIds[remoteIdHex]
     var old = oldWrap && oldWrap.connection
     var oldType = oldWrap && oldWrap.info.type
+
+    if (old && self._keepExistingConnections) {
+      self.emit('redundant-connection', connection, info)
+      connection.destroy()
+      return
+    }
 
     if (old) {
       debug('duplicate connections detected in handshake, dropping one')
