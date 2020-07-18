@@ -1,5 +1,5 @@
 {
-  "name": "dweb-discovery-swarm",
+  "name": "dweb-dweb-discovery-swarm",
   "version": "1.1.0",
   "description": "A network swarm that uses dweb-discovery-channel to find peers",
   "main": "index.js",
@@ -23,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mafintosh/discovery-swarm.git"
+    "url": "https://github.com/mafintosh/dweb-discovery-swarm.git"
   },
   "author": "Mathias Buus (@mafintosh)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mafintosh/discovery-swarm/issues"
+    "url": "https://github.com/mafintosh/dweb-discovery-swarm/issues"
   },
-  "homepage": "https://github.com/mafintosh/discovery-swarm"
+  "homepage": "https://github.com/mafintosh/dweb-discovery-swarm"
 }
